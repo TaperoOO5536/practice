@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,15 +7,18 @@
     <title>Practice</title>
   </head>
   <body>
-    <h1>Тут будет всё</h1>
-    <form id="search">
-      <label>Введите ключевое слово</label><br />
-      <input type="text" name="keyword" id="input" /><br />
-      <button type="submit">Найти</button>
-    </form>
-    <div id="results"></div>
-    <div id="downloads"></div>
+    <header><h1>Тут будет всё</h1></header>
+    <div class="container">
+      <form id="search">
+        <label>Введите ключевое слово</label><br />
+        <div class="searchDiv">
+          <input type="text" name="keyword" id="input" /><br />
+          <button type="submit">Найти</button>
+        </div>
+      </form>
+      <div id="results" class="results"></div>
+      <div id="downloads" class="downloads"></div>
+    </div>
     <script src="js/script.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </body>
 </html>

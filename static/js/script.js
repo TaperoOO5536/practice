@@ -14,7 +14,8 @@ function updatePage() {
   links.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      window.open(`${link.href}`);
+      const windowO = window.open("", "_blank", "width=1000,height=700");
+      windowO.document.body.innerHTML = localStorage.getItem(e.target.innerText);
     });
   });
 }
@@ -62,7 +63,7 @@ async function getPage(keyword, url) {
   if (response.ok === true) {
     const page = await response.json();
     localStorage.setItem(`${urls[url]}`, `${page}`);
-    download.innerHTML += `<a href="${urls[url]}" class="link">${urls[url]}</a><br/>`;
+    updatePage();
   }
 }
 
