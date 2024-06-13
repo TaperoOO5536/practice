@@ -6,7 +6,7 @@ const input = document.querySelector("#input");
 function updatePage() {
   download.innerHTML = "<h2>Скачанные файлы</h2>";
   Object.entries(localStorage).forEach((i) => {
-    download.innerHTML += `<a href="${i[1]}" class="link">${i[0]}</a><br/>`;
+    download.innerHTML += `<a href="${i[0]}" class="link">${i[0]}</a><br/>`;
   });
 
   const links = document.querySelectorAll(".link");
@@ -27,34 +27,25 @@ async function getUrls(keyword) {
 
   if (response.ok === true) {
     const urls = await response.json();
-    console.log(urls);
-    if (urls) {
-      result.innerHTML = "<h2>Найденные файлы</h2>";
-      for (let i = 0; i < urls.length; i++) {
-        const newUrl = `<a href="${urls[i]}" target="_blank" class="url">${urls[i]}</a><br/>`;
-        result.innerHTML += newUrl;
-      }
-      const addedUrls = document.querySelectorAll(".url");
-      addedUrls.forEach((url) => {
-        url.addEventListener("click", (e) => {
-          e.preventDefault();
+    return urls;
+  } else {
+    return null;
+  }
+}
 
-          // let data = axios.get(`${url.href}`);
-          // console.log(data);
-
-          // let http = new XMLHttpRequest();
-          // http.open("GET", `${url.href}`);
-          // http.onreadystatechange = function () {
-          //   if (this.readyState == 4 && this.status == 200) {
-          //     console.log(this.responseText);
-          //   }
-          // };
-          // http.send(null);
-
-          localStorage.setItem(`${url.href}`, `${url.href}`);
-          // localStorage.setItem(`${input.value}`, `${JSON.stringify(content)}`);
-          download.innerHTML += `<a href="${url.href}" class="link">${url.href}</a><br/>`;
-        });
+async function addUrls(keyword) {
+  const urls = await getUrls(keyword);
+  if (urls) {
+    result.innerHTML = "<h2>Найденные файлы</h2>";
+    for (let i = 0; i < urls.length; i++) {
+      const newUrl = `<a href="${urls[i]}" target="_blank" class="url">${urls[i]}</a><br/>`;
+      result.innerHTML += newUrl;
+    }
+    const addedUrls = document.querySelectorAll(".url");
+    for (let i = 0; i < addedUrls.length; i++) {
+      addedUrls[i].addEventListener("click", (e) => {
+        e.preventDefault();
+        getPage(keyword, i);
       });
     }
   } else {
@@ -62,11 +53,24 @@ async function getUrls(keyword) {
   }
 }
 
+async function getPage(keyword, url) {
+  const response = await fetch("api/" + keyword + "/" + url, {
+    methos: "GET",
+    headers: { Accept: "application/json" },
+  });
+  let urls = await getUrls(keyword);
+  if (response.ok === true) {
+    const page = await response.json();
+    localStorage.setItem(`${urls[url]}`, `${page}`);
+    download.innerHTML += `<a href="${urls[url]}" class="link">${urls[url]}</a><br/>`;
+  }
+}
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const keyword = input.value.toLowerCase();
   if (keyword != "") {
-    getUrls(keyword);
+    addUrls(keyword);
   } else {
     result.innerHTML = "<h2>Ничего не найдено</h2>";
   }

@@ -1,22 +1,22 @@
 [
   {
     "keyword": "видео",
-    "urls": ["https://www.youtube.com/", "https://www.kinopoisk.ru/?utm_source=ntp_chrome"]
+    "urls": ["http://lib.ru/CINEMA/kinowed/", "http://lib.ru/CINEMA/semejvid.txt"]
   },
   {
     "keyword": "чтение",
     "urls": [
-      "https://bookmate.ru/?utm_source=ntp_chrome",
-      "https://music.yandex.ru/home?utm_source=ntp_chrome",
-      "https://ficbook.net/"
+      "http://lib.ru/COMPULIB/libtezisy.txt",
+      "http://lib.ru/COMPULIB/isbn.txt",
+      "http://lib.ru/BACH/chap02.txt#2"
     ]
   },
   {
     "keyword": "музыка",
     "urls": [
-      "https://music.yandex.ru/home?utm_source=ntp_chrome",
-      "https://rus.hitmotop.com/",
-      "https://music.youtube.com/"
+      "http://lib.ru/CINEMA/conservatory/m20000616.txt",
+      "http://lib.ru/CINEMA/conservatory/mmh991117.txt",
+      "http://lib.ru/CINEMA/conservatory/mmh971215.txt"
     ]
   }
 ]
