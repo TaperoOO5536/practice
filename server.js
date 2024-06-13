@@ -1,9 +1,8 @@
 const express = require("express");
 const fs = require("fs");
-const { url } = require("inspector");
-
 const app = express();
 const jsonParser = express.json();
+app.use(require("cors")());
 
 const filePath = "keywords.json";
 

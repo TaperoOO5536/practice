@@ -6,7 +6,7 @@ const input = document.querySelector("#input");
 function updatePage() {
   download.innerHTML = "<h2>Скачанные файлы</h2>";
   Object.entries(localStorage).forEach((i) => {
-    download.innerHTML += `<a href="#" class="link">${i[0]}</a>`;
+    download.innerHTML += `<a href="${i[1]}" class="link">${i[0]}</a><br/>`;
   });
 
   const links = document.querySelectorAll(".link");
@@ -28,10 +28,34 @@ async function getUrls(keyword) {
   if (response.ok === true) {
     const urls = await response.json();
     console.log(urls);
-    // if (urls) {
-    result.innerHTML = "<h2>Найденные файлы</h2>";
-    for (let i = 0; i < urls.length; i++) {
-      result.innerHTML += `<a href="${urls[i]}" class="link" target="_blank">${urls[i]}</a><br/>`;
+    if (urls) {
+      result.innerHTML = "<h2>Найденные файлы</h2>";
+      for (let i = 0; i < urls.length; i++) {
+        const newUrl = `<a href="${urls[i]}" target="_blank" class="url">${urls[i]}</a><br/>`;
+        result.innerHTML += newUrl;
+      }
+      const addedUrls = document.querySelectorAll(".url");
+      addedUrls.forEach((url) => {
+        url.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          // let data = axios.get(`${url.href}`);
+          // console.log(data);
+
+          // let http = new XMLHttpRequest();
+          // http.open("GET", `${url.href}`);
+          // http.onreadystatechange = function () {
+          //   if (this.readyState == 4 && this.status == 200) {
+          //     console.log(this.responseText);
+          //   }
+          // };
+          // http.send(null);
+
+          localStorage.setItem(`${url.href}`, `${url.href}`);
+          // localStorage.setItem(`${input.value}`, `${JSON.stringify(content)}`);
+          download.innerHTML += `<a href="${url.href}" class="link">${url.href}</a><br/>`;
+        });
+      });
     }
   } else {
     result.innerHTML = "<h2>Ничего не найдено</h2>";
@@ -41,7 +65,11 @@ async function getUrls(keyword) {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const keyword = input.value.toLowerCase();
-  getUrls(keyword);
+  if (keyword != "") {
+    getUrls(keyword);
+  } else {
+    result.innerHTML = "<h2>Ничего не найдено</h2>";
+  }
 });
 
 updatePage();
