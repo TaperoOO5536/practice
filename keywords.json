@@ -1,0 +1,22 @@
+[
+  {
+    "keyword": "видео",
+    "urls": ["https://www.youtube.com/", "https://www.kinopoisk.ru/?utm_source=ntp_chrome"]
+  },
+  {
+    "keyword": "чтение",
+    "urls": [
+      "https://bookmate.ru/?utm_source=ntp_chrome",
+      "https://music.yandex.ru/home?utm_source=ntp_chrome",
+      "https://ficbook.net/"
+    ]
+  },
+  {
+    "keyword": "музыка",
+    "urls": [
+      "https://music.yandex.ru/home?utm_source=ntp_chrome",
+      "https://rus.hitmotop.com/",
+      "https://music.youtube.com/"
+    ]
+  }
+]
